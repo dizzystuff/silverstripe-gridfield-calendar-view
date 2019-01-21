@@ -186,7 +186,7 @@
                             tip = $('<div class="gridfield-calendar-tip"></div>');
                             tip.attr('id', self.getGridFieldID()+'_calendar_tt'+event._id);
                             tip.addClass(event.className.join(' '));
-                            tip.append($('<p class="evt-title"/>').text(event.title));
+                            tip.append($('<p class="evt-title"/>').html(event.title));
                             
                             //Figure out the event range format
                             var dateTimeStr = false;
@@ -214,16 +214,16 @@
                                     }
                                 }
                             } else {
-                                dateTimeStr=event.start.format('MMM D @ h:mma');
+                                dateTimeStr=event.start.format(event.tipDatetimeFormat);
                             }
 
                             if (dateTimeStr) {
-                                tip.append($('<p class="evt-time-range"/>').text(dateTimeStr));
+                                tip.append($('<p class="evt-time-range"/>').html(dateTimeStr));
                             }
 
                             if (event.abstractText) {
                                 tip.append('<hr />');
-                                tip.append($('<p class="evt-abstract"/>').text(event.abstractText));
+                                tip.append($('<p class="evt-abstract"/>').html(event.abstractText));
                             }
 
                             //Append to the dom

@@ -22,6 +22,9 @@ class GridFieldCalendarView implements GridField_HTMLProvider, GridField_URLHand
     private $_summaryField;
     private $_allDayField;
 
+    // http://momentjs.com/docs/#/displaying/format/
+    private $_tipDatetimeFormat = 'MMM D @ h:mma';
+
     /**
      * Default options for the FullCalendar instance
      * 
@@ -234,6 +237,17 @@ JS
         return $this->_allDayField;
     }
 
+    public function setTipDatetimeFormat($format)
+    {
+        $this->_tipDatetimeFormat = $format;
+        return $this;
+    }
+
+    public function getTipDatetimeFormat()
+    {
+        return $this->_tipDatetimeFormat;
+    }
+
     /**
      * Gets the calendar options that are currently set
      * 
@@ -350,7 +364,8 @@ JS
                 'start' => date('c', strtotime($event->{$this->_startDateField})),
                 'end' => date('c', strtotime($event->{$this->_endDateField})),
                 'url' => Controller::join_links($gridField->Link('item'), $event->ID, 'edit'),
-                'className' => $deleted_event_class
+                'className' => $deleted_event_class,
+                'tipDatetimeFormat' => $this->getTipDatetimeFormat()
             );
         }
 
